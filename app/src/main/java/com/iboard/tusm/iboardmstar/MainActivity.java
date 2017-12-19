@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        intent.putExtra("media",FtpUploadPath);
 //        startActivity(intent);
 
+
     }
 
     @Override
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         name.setText(strname);
         editText.setText(strname);
-        String strIp  = ImagicUtill.GetIpAddress();;
+        String strIp = ImagicUtill.GetIpAddress();
         if(ImagicUtill.isIP(strIp)) {
             ip.setText(strIp);
         }else{
@@ -152,7 +154,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode==82){
-            menu.showMenu();
+            if (!menu.isMenuShowing()) {
+                menu.showMenu();
+            } else {
+                menu.toggle();
+            }
+
         }
 
         return super.onKeyDown(keyCode, event);

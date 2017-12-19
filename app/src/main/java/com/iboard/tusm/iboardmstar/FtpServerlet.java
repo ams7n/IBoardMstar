@@ -175,6 +175,7 @@ public class FtpServerlet extends DefaultFtplet {
                 ||
                 ExtensionName.equalsIgnoreCase("3gp")) {
             Log.i("ftp","go in ");
+            //  ImagicUtill.SetTouchToAndroid();
             Intent intent = new Intent();
             intent.setClass(context, MediaActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

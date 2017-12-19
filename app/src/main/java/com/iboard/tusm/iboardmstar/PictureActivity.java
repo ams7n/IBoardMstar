@@ -36,13 +36,13 @@ public class PictureActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pictury_layout);
         vp = (ImageView) findViewById(R.id.vp);
-         bar =(ProgressBar)findViewById(R.id.progressBar);
+        bar = (ProgressBar) findViewById(R.id.progressBar);
           fileServer = FileServer.getInstance();
           fileServer.initFileServer(vp,bar,this);
 
-            // fileServer.RESTART();
+        // fileServer.RESTART();
 
-      //    startHeart();
+        //startHeart();
 
     }
 

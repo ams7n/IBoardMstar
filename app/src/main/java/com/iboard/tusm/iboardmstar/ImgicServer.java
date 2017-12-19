@@ -304,11 +304,11 @@ public class ImgicServer implements ScreenshotObserver.OnScreenshotTakenListener
                 Log.i("heart","===== 收到心跳");
                 break;
             case REQUEST_SEND_IMAGE:
-                    SendMsg("REQUEST_SUCCEED",(byte)0x94,(byte)0xB6);
+                //     ImagicUtill.SetTouchToAndroid();
                     Intent intent = new Intent(context, PictureActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
-
+                SendMsg("REQUEST_SUCCEED", (byte) 0x94, (byte) 0xB6);
                 break;
             case SEND_VIDEO:
                 JSONObject ftpJson =new JSONObject();
@@ -523,7 +523,7 @@ public class ImgicServer implements ScreenshotObserver.OnScreenshotTakenListener
         }
     }
 
-    private void SendMsg (String paramString,byte bb1 , byte bb2)
+    public static void SendMsg(String paramString, byte bb1, byte bb2)
     {
         byte[] strData = paramString.getBytes();
         byte[] arrayOfByte1 = new byte[6];

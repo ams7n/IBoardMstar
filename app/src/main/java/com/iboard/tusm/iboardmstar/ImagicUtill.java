@@ -64,6 +64,8 @@ public class ImagicUtill {
     public String RECEIVE_STATUS = "POWER_ON";
     private Bitmap bitmap;
     private Context context;
+    private static int mTouchSelA = 88;
+    private static int mTouchSelB = 89;
 
 
 
@@ -255,52 +257,55 @@ public class ImagicUtill {
         }
        
     }
-    private void setSourceState(int paramInt)
+
+    private void setSourceState(int getcode)
     {
-        switch (paramInt)
+        Log.i("Ext_HDMI", "======paramInt=====" + getcode);
+
+        switch (getcode)
         {
 
             case 1:
-                this.RECEIVE_SOURCE = "324";
+                RECEIVE_SOURCE = "324";
                 break;
             case 5:
-                this.RECEIVE_SOURCE = "331";
+                RECEIVE_SOURCE = "331";
                 break;
             case 6:
-                this.RECEIVE_SOURCE = "332";
+                RECEIVE_SOURCE = "332";
                 break;
             case 7:
-                this.RECEIVE_SOURCE = "333";
+                RECEIVE_SOURCE = "333";
                 break;
             case 8:
-                this.RECEIVE_SOURCE = "302";
+                RECEIVE_SOURCE = "302";
                 break;
             case 28:
-                this.RECEIVE_SOURCE = "303";
+                RECEIVE_SOURCE = "303";
                 break;
             case 24:
-                this.RECEIVE_SOURCE = "328";
+                RECEIVE_SOURCE = "328";
                 break;
             case 23:
-                this.RECEIVE_SOURCE = "329";
+                RECEIVE_SOURCE = "329";
                 break;
             case 26:
-                this.RECEIVE_SOURCE = "330";
+                RECEIVE_SOURCE = "330";
                 break;
             case 27:
-                this.RECEIVE_SOURCE = "327";
+                RECEIVE_SOURCE = "327";
                 break;
             case 16:
-                this.RECEIVE_SOURCE = "326";
+                RECEIVE_SOURCE = "326";
                 break;
             case 2:
-                this.RECEIVE_SOURCE = "325";
+                RECEIVE_SOURCE = "325";
                 break;
             case 34:
-                this.RECEIVE_SOURCE = "3";
+                RECEIVE_SOURCE = "3";
                 break;
             case 35:
-                this.RECEIVE_SOURCE = "334";
+                RECEIVE_SOURCE = "334";
                 break;
         }
 
@@ -330,10 +335,17 @@ public class ImagicUtill {
                 case 25:
                     try
                     {
-                        if (TvManager.getInstance().getEnvironment("Ext_HDMI").equals("Ext_HDMI3"))
+                        if (TvManager.getInstance().getEnvironment("Ext_HDMI").equalsIgnoreCase("Ext_HDMI3")) {
+                            Log.i("Ext_HDMI", "======3333333==");
+
                             setSourceState(26);
-                        if (!TvManager.getInstance().getEnvironment("Ext_HDMI").equals("Ext_HDMI_OPS"))
-                             setSourceState(27);
+                            break;
+                        } else {
+                            Log.i("Ext_HDMI", "======44444444==");
+                            setSourceState(27);
+                            break;
+                        }
+
                     }
                     catch (TvCommonException localTvCommonException1)
                     {
@@ -343,14 +355,26 @@ public class ImagicUtill {
                 case 0:
                     try
                     {
-                        if (TvManager.getInstance().getEnvironment("Ext_HDMI").equals("Ext_VGA1"))
+                        Log.i("Ext_HDMI", "====VGA====" + TvManager.getInstance().getEnvironment("Ext_HDMI"));
+                        if (TvManager.getInstance().getEnvironment("Ext_HDMI").equals("Ext_VGA1")) {
                             setSourceState(5);
-                        if (TvManager.getInstance().getEnvironment("Ext_HDMI").equals("Ext_VGA2"))
+                            break;
+                        }
+
+                        if (TvManager.getInstance().getEnvironment("Ext_HDMI").equals("Ext_VGA2")) {
                             setSourceState(6);
-                        if (TvManager.getInstance().getEnvironment("Ext_HDMI").equals("Ext_VGA3"))
+                            break;
+                        }
+
+                        if (TvManager.getInstance().getEnvironment("Ext_HDMI").equals("Ext_VGA3")) {
                             setSourceState(7);
-                        if (!TvManager.getInstance().getEnvironment("Ext_HDMI").equals("Ext_VGA4"))
+                            break;
+                        }
+                        if (TvManager.getInstance().getEnvironment("Ext_HDMI").equals("Ext_VGA4")) {
                             setSourceState(8);
+                            break;
+                        }
+
                     }
                     catch (TvCommonException localTvCommonException2)
                     {
@@ -365,6 +389,8 @@ public class ImagicUtill {
                     break;
             }
         }
+        Log.i("Ext_HDMI", "======RECEIVE_SOURCE=====" + RECEIVE_SOURCE);
+
         return   RECEIVE_SOURCE;
     }
     public boolean isAvilible( String packageName )
@@ -749,4 +775,22 @@ public class ImagicUtill {
        Log.i("random",random);
         return random;
     }
+
+    public static void SetTouchToAndroid() {
+        setGpioDeviceStatus(mTouchSelA, false);
+        setGpioDeviceStatus(mTouchSelB, false);
+
+    }
+
+    public static boolean setGpioDeviceStatus(int mGpio, boolean bEnable) {
+        try {
+            if (TvManager.getInstance() != null) {
+                return TvManager.getInstance().setGpioDeviceStatus(mGpio, bEnable);
+            }
+        } catch (TvCommonException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
+

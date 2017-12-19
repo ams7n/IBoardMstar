@@ -183,8 +183,8 @@ public class FileServer {
                          mVp.setImageBitmap(bitmap);
                      }
                  });
-                handler.removeCallbacks(runnable);
                 sendMsg("RECEIVE_SEND_IMAGE",(byte)0x94,(byte)0xB7);
+                handler.removeCallbacks(runnable);
                 break;
             case  LOAD_IMAGE:
                 Log.i(TAG,"FileServer ------ goin LOAD_IMAGE");
@@ -260,6 +260,8 @@ public class FileServer {
         System.arraycopy(strData, 0, arrayOfByte2, arrayOfByte1.length, strData.length);
         output.write(arrayOfByte2);
         output.flush();
+        Log.i(TAG, "FileServer ------ goin flush");
+
     }
 
     public void setImageRotation(float rotation){

@@ -27,7 +27,6 @@ public class MediaActivity extends Activity   {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.media_layout);
         videoView = (MyVideoView) findViewById(R.id.video);
         Intent intent = getIntent();
@@ -132,6 +131,7 @@ public class MediaActivity extends Activity   {
         mediaController = new MediaController(this);
         Uri uri = Uri.parse(url);
         videoView.setMediaController(mediaController);
+        videoView.setZOrderOnTop(true);
         videoView.setVideoURI(uri);
         videoView.start();
     }
